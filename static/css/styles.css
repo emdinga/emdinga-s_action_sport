@@ -78,6 +78,19 @@ footer {
     animation: passBall 5s linear infinite;
 }
 
+.person {
+    width: 20px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+}
+
+#person1 { left: 20%; }
+#person2 { left: 40%; }
+#person3 { left: 60%; }
+#person4 { left: 80%; }
+
 #goal {
     width: 50px;
     height: 150px;
@@ -86,6 +99,7 @@ footer {
     top: 75px;
     right: 0;
 }
+
 
 @keyframes passBall {
     0% { top: 50%; left: 10%; }
