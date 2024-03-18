@@ -69,8 +69,9 @@ footer {
 #ball {
     width: 20px;
     height: 20px;
-    background-color: black;
+    background-color: white;
     border-radius: 50%;
+    border: 2px solid black;
     position: absolute;
     top: 50%;
     left: 10%;
