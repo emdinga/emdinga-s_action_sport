@@ -59,8 +59,8 @@ footer {
 
 /* adding the field */
 .field {
-    width: 600px;
-    height: 300px;
+    width: 800px;
+    height: 400px;
     background-color: green;
     position: relative;
     margin: 50px auto;
@@ -91,15 +91,14 @@ footer {
 #person3 { left: 60%; }
 #person4 { left: 80%; }
 
-#goal {
-    width: 50px;
-    height: 150px;
+.goal {
+    width: 40px;
+    height: 160px;
     background-color: white;
     position: absolute;
-    top: 75px;
+    top: 50px;
     right: 0;
 }
-
 
 @keyframes passBall {
     0% { top: 50%; left: 10%; }
