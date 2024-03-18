@@ -1,0 +1,4 @@
+services:
+  - name: web
+    env: python3.9
+    command: python3 app.py
