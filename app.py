@@ -18,6 +18,10 @@ def login_page():
     """Render the login page"""
     return render_template('login.html')
 
+@app.route('/register', methods=['GET'])
+def show_registration_form():
+    return render_template('register.html')
+
 
 if __name__ == '__main__':
     with app.app_context():
