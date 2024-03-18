@@ -50,3 +50,9 @@ footer {
     border: 1px solid black;
     padding: 20px;
 }
+
+/* map styles */
+#map {
+	height: 400px;
+	width: 100%;
+}

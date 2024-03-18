@@ -1,22 +1,26 @@
-{% extends "layout.html" %}
-
-{% block title %}
-    Simple Map
-{% endblock %}
-
-{% block content %}
-    <!-- Welcome content -->
-    <section class="hero">
-        <div class="container">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+    <header>
+        <div>
             <h1>Football on Court Africa - Durban</h1>
-            <p class="welcome-paragraph">Welcome to Football on Court Africa in Durban! Experience the thrill of indoor football like never before.</p>
+            <p>Welcome to Football on Court Africa in Durban! Experience the thrill of indoor football like never before.</p>
         </div>
-    </section>
-
-    <!-- Google Maps -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+<body>
     <h3>My Google Maps</h3>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk"></script>
     <script>
         // Initialize and add the map
         function initMap() {
@@ -40,4 +44,10 @@
             initMap();
         };
     </script>
-{% endblock %}
+    <footer>
+	    <div class="container">
+		    <p>&copy; 2024 Football on Court Africa - Durban. All rights reserved.</p>
+	    </div>
+    </footer>
+</body>
+</html>
