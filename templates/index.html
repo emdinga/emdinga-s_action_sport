@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football on Court Africa Durban</title>
-    <link rel="stylesheet" href="static/css/styles.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">Booking</a></li>
-                <!-- Add more navigation links as needed -->
-            </ul>
-        </nav>
-    </header>
+{% extends "layout.html" %}
 
+{% block title %}
+    Football on Court Africa Durban
+{% endblock %}
+
+{% block content %}
     <section class="hero">
         <div class="container">
             <h1>Football on Court Africa Durban</h1>
@@ -24,13 +12,9 @@
             <div id="map"></div>
         </div>
     </section>
+{% endblock %}
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Football on Court Africa Durban. All rights reserved.</p>
-        </div>
-    </footer>
-
+{% block scripts %}
     <script>
         // Initialize and add the map
         function initMap() {
@@ -48,8 +32,5 @@
             });
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk
-	&callback=initMap" async defer></script>
-
-</body>
-</html>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk&callback=initMap" async defer></script>
+{% endblock %}
