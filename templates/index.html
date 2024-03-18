@@ -7,30 +7,25 @@
 {% block content %}
     <section class="hero">
         <div class="container">
-            <h1>Football on Court Africa Durban</h1>
+            <h1>Football on Court Africa - Durban</h1>
             <p class="welcome-paragraph">Welcome to Football on Court Africa in Durban! Experience the thrill of indoor football like never before.</p>
-            <div id="map"></div>
+            <!-- Add Google Maps container -->
+            <gmp-map center="40.12150192260742,-100.45039367675781" zoom="4" map-id="DEMO_MAP_ID">
+                <gmp-advanced-marker position="40.12150192260742,-100.45039367675781" title="My location"></gmp-advanced-marker>
+            </gmp-map>
         </div>
     </section>
 {% endblock %}
 
+{% block footer %}
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Football on Court Africa - Durban. All rights reserved.</p>
+        </div>
+    </footer>
+{% endblock %}
+
 {% block scripts %}
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Football on Court Africa Durban
-            var location = { lat: -29.820594, lng: 31.032515 };
-            // The map, centered at Football on Court Africa Durban
-            var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
-                center: location,
-            });
-            // The marker, positioned at Football on Court Africa Durban
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map,
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk&callback=initMap" async defer></script>
+    <!-- Include Google Maps API with custom elements -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk&libraries=maps,marker"></script>
 {% endblock %}
