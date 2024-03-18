@@ -3,40 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Indoor Booking{% endblock %}</title>
-    <style>
-        /* Global styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: green;
-            color: black;
-            display: flex;
-            justify-content: flex-end;
-            padding: 10px;
-        }
-        .navbar a {
-            color: black;
-            text-decoration: none;
-            margin-left: 10px;
-        }
-        /* Content styles */
-        .content {
-            padding: 20px;
-        }
-    </style>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="static/css/styles.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="#">Login</a>
-    </div>
-    <div class="content">
+    <header>
+        <nav>
+            <ul class="nav-left">
+                <!-- Add more navigation links as needed -->
+            </ul>
+            <div class="nav-right">
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <div class="main-content">
         {% block content %}{% endblock %}
     </div>
+
+    <footer>
+        <div class="container footer-container">
+            <p>&copy; 2024 Football on Court Africa - Durban. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
 </body>
 </html>

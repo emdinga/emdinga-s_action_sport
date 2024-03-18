@@ -1,0 +1,37 @@
+/* Add styles for the header */
+header {
+    background-color: green;
+    color: white;
+    padding: 10px;
+}
+
+/* Add styles for the navigation links */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Add styles for the footer */
+footer {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-top: 1px solid black;
+}
+
+/* Add styles for the main content area */
+.main-content {
+    border: 1px solid black;
+    padding: 20px;
+}
