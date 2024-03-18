@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Simple Map</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfWvp0dEAr6KzE4QXll0O82fOlfqkWXNk"></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-    <h3>My Google Maps Demo</h3>
+{% extends "layout.html" %}
+
+{% block title %}
+    Simple Map
+{% endblock %}
+
+{% block content %}
+    <h3>Football on court Africa location in Durban</h3>
     <div id="map"></div>
     <script>
         // Initialize and add the map
@@ -36,6 +30,13 @@
             initMap();
         };
     </script>
-</body>
-</html>
+
+    <!-- Welcome content -->
+    <section class="hero">
+        <div class="container">
+            <h1>Football on Court Africa - Durban</h1>
+            <p class="welcome-paragraph">Welcome to Football on Court Africa in Durban! Experience the thrill of indoor football like never before.</p>
+        </div>
+    </section>
+{% endblock %}
 
