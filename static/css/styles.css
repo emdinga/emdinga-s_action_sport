@@ -21,6 +21,21 @@ nav ul li a {
     color: white;
     text-decoration: none;
 }
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: right; /* Align links to the right */
+}
+
+.nav-links li {
+    display: inline;
+    margin-left: 1rem;
+}
+
+.nav-links li:first-child {
+    margin-left: 0; /* Remove margin from the first link */
+}
 
 /* Add styles for the footer */
 footer {

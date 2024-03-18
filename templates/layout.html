@@ -4,35 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <header>
         <nav>
-            <ul class="nav-left">
-                <!-- Add more navigation links as needed -->
+            <ul class="nav-links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Login</a></li>
             </ul>
-            <div class="nav-right">
-                <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Login</a></li>
-                </ul>
-            </div>
         </nav>
     </header>
 
-    <!-- Main content area -->
-    <div class="main-content">
-        {% block content %}{% endblock %}
+    <div class="content">
+        {% block content %}
+        {% endblock %}
     </div>
 
     <footer>
-        <div class="container footer-container">
+        <div class="container">
             <p>&copy; 2024 Football on Court Africa - Durban. All rights reserved.</p>
         </div>
     </footer>
 
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+    {% endblock %}
 </body>
 </html>
