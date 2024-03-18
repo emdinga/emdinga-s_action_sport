@@ -1,0 +1,64 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Temporary files
+*.swp
+*~
+*.bak
+*.tmp
+
+# C extensions
+*.so
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Database
+*.sqlite3
+
+# Thumbnails
+._*
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
