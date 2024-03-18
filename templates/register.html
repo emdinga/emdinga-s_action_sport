@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    User Registration
+    Register
 {% endblock %}
 
 {% block content %}
-    <h2>User Registration</h2>
+    <h2>Register</h2>
     <form id="register-form" action="/api/register" method="post">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
@@ -13,7 +13,32 @@
         <input type="text" id="surname" name="surname" required><br><br>
         <label for="cell_number">Cell Number:</label>
         <input type="text" id="cell_number" name="cell_number" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
         <button type="submit">Register</button>
     </form>
-{% endblock %}
+    <p>Already a member? <a href="/login">Login here</a>.</p>
 
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            // Collect form data
+            var formData = new FormData(this);
+            // Send POST request to register endpoint
+            fetch('/api/register', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // If registration successful, redirect to registration-successful page or another page
+                    window.location.href = '/registration-successful';
+                } else {
+                    // If registration failed, display error message
+                    alert('Registration failed. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+{% endblock %}

@@ -9,6 +9,8 @@
     <form id="login-form" action="/api/login" method="post">
         <label for="cell_number">Cell Number:</label>
         <input type="text" id="cell_number" name="cell_number" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
         <button type="submit">Login</button>
     </form>
     <p>Not a member? <a href="/register">Register here</a>.</p>
@@ -36,3 +38,4 @@
         });
     </script>
 {% endblock %}
+
