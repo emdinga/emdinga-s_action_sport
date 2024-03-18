@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     """root of the project"""
-    return render_template('frontend/static', 'index.html')
+    return render_template('index.html')
 
 if __name__ == '__main__':
     with app.app_context():
