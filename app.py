@@ -2,7 +2,7 @@
 """entry"""
 
 from flask import Flask, render_template,request, jsonify
-
+from database.database import Database
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def index():
     """root of the project"""
     return render_template('index.html')
 
-@app.route('/api/login', methods=['POST'])
+@app.route('login', methods=['POST'])
 def login_user():
     """Handle POST request to authenticate user login"""
     """"Extract login credentials from request"""
