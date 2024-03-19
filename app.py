@@ -21,6 +21,10 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+db = Database(app.config['DATABASE'])
+"""Create tables in the database"""
+db.create_tables()
+
 @app.route('/')
 def index():
     """root of the project"""
@@ -125,6 +129,4 @@ def registration_success():
 
 if __name__ == '__main__':
     with app.app_context():
-        database = Database(app.config['DATABASE'])
-        database.create_tables()
         app.run(host='0.0.0.0', port=5000, debug=True)
