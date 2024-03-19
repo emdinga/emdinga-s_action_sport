@@ -1,13 +1,24 @@
 #!/usr/bin/env python3
 """entry"""
 
-from flask import Flask, render_template,request, jsonify, session
+from flask import Flask, render_template,request, jsonify, session, g
 from database.database import Database
-import secrets, hashlib, bcrypt
+import secrets, hashlib, bcrypt, sqlite3
 
 
 db = Database('indoor_booking.db')
 app = Flask(__name__)
+
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect('indoor_booking.db')
+    return g.db
+
+@app.teardown_appcontext
+def close_db(error):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
 
 @app.route('/')
 def index():
@@ -30,11 +41,13 @@ def login_user():
     cell_number = request.form.get('cell_number')
     password = request.form.get('password')
 
-    """Query database to retrieve user data by cell number"""
-    db.cursor.execute('''
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute('''
         SELECT user_id, name, hashed_password, salt FROM User WHERE cell_number = ?
     ''', (cell_number,))
-    user_data = db.cursor.fetchone()
+    user_data = cursor.fetchone()
 
     if user_data:
         user_id, user_name, hashed_password, salt = user_data
