@@ -125,4 +125,6 @@ def registration_success():
 
 if __name__ == '__main__':
     with app.app_context():
+        database = Database(app.config['DATABASE'])
+        database.create_tables()
         app.run(host='0.0.0.0', port=5000, debug=True)
