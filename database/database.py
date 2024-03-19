@@ -17,7 +17,6 @@ class Database:
                 name TEXT,
                 surname TEXT,
                 cell_number TEXT,
-                password TEXT,
                 hashed_password TEXT,
                 salt
             )
