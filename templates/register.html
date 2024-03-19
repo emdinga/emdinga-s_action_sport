@@ -6,7 +6,7 @@
 
 {% block content %}
     <h2>Register</h2>
-    <form id="register-form" action="/api/register" method="post">
+    <form id="register-form" action="/register" method="post">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
         <label for="surname">Surname:</label>
@@ -20,25 +20,27 @@
     <p>Already a member? <a href="/login">Login here</a>.</p>
 
     <script>
-        document.getElementById('register-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-            // Collect form data
-            var formData = new FormData(this);
-            // Send POST request to register endpoint
-            fetch('/api/register', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // If registration successful, redirect to registration-successful page or another page
-                    window.location.href = '/registration-successful';
-                } else {
-                    // If registration failed, display error message
-                    alert('Registration failed. Please try again.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    </script>
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        // Collect form data
+        var formData = new FormData(this);
+        // Send POST request to register endpoint
+        fetch('/register', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // If registration successful, redirect to registration-successful page or another page
+                window.location.href = '/registration-successful';
+            } else {
+                // If registration failed, display error message from server
+                response.json().then(data => {
+                    alert('Registration failed: ' + data.message);
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
 {% endblock %}

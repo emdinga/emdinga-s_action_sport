@@ -33,6 +33,16 @@ def register():
         cell_number = request.form['cell_number']
         password = request.form['password']
 
+        """Check if the cell number already exists in the database"""
+        db.cursor.execute('''
+            SELECT * FROM User WHERE cell_number = ?
+        ''', (cell_number,))
+        existing_user = db.cursor.fetchone()
+
+        if existing_user:
+            """If user already exists, return alert with message"""
+            return jsonify({"message": "User already exists. Please recover your password."}), 400
+
         """Insert user data into the database"""
         db.cursor.execute('''
             INSERT INTO User (name, surname, cell_number, password)
