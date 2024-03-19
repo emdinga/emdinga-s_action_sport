@@ -27,9 +27,8 @@ def login_page():
 @app.route('/login_user', methods=['POST'])
 def login_user():
     """Handle POST request to authenticate user login"""
-    data = request.json
-    cell_number = data.get('cell_number')
-    password = data.get('password')
+    cell_number = request.form.get('cell_number')
+    password = request.form.get('password')
 
     """Query database to retrieve user data by cell number"""
     db.cursor.execute('''
@@ -48,6 +47,7 @@ def login_user():
             return jsonify({"message": "Login successful"}), 200
 
     return jsonify({"message": "Login failed"}), 401
+
 
 @app.route('/register', methods=['GET'])
 def show_registration_form():
