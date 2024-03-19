@@ -4,7 +4,8 @@ import sqlite3
 
 
 class Database:
-    def __init__(self, db_name):
+    def __init__(self, db_name='indoor_booking.db'):
+        self.db_name = db_name
         self.conn = sqlite3.connect(db_name)
         self.cursor = self.conn.cursor()
 
@@ -15,7 +16,8 @@ class Database:
                 user_id INTEGER PRIMARY KEY,
                 name TEXT,
                 surname TEXT,
-                cell_number TEXT
+                cell_number TEXT,
+                password TEXT
             )
         ''')
 

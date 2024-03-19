@@ -76,6 +76,7 @@ def register_user():
 
         """ Redirect to registration successful page"""
         return redirect('/registration-successful')
+
     except Exception as e:
         return f'Error occurred: {str(e)}'
 
