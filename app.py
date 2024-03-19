@@ -77,11 +77,8 @@ def register_user():
         cell_number = request.form['cell_number']
         password = request.form['password']
 
-        """Generate a salt"""
-        salt = secrets.token_hex(16)
-
-        """Hash the password with the salt"""
-        hashed_password = hashlib.sha256((password + salt).encode()).hexdigest()
+        """Hash and salt the password"""
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         """Check if the cell number already exists in the database"""
         db.cursor.execute('''
@@ -95,19 +92,26 @@ def register_user():
 
         """Insert user data into the database"""
         db.cursor.execute('''
-            INSERT INTO User (name, surname, cell_number, hashed_password, salt)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (name, surname, cell_number, hashed_password, salt))
+            INSERT INTO User (name, surname, cell_number, hashed_password)
+            VALUES (?, ?, ?, ?)
+        ''', (name, surname, cell_number, hashed_password.decode('utf-8')))
         db.conn.commit()
 
+        """ Fetch the user's name from the database """
+        db.cursor.execute('''
+            SELECT name FROM User WHERE cell_number = ?
+        ''', (cell_number,))
+        user_name = db.cursor.fetchone()[0]
+
         """ Store user name in the session """
-        session['user_name'] = name
+        session['user_name'] = user_name
 
         """ Redirect to registration successful page"""
         return redirect('/registration-successful')
 
     except Exception as e:
         return f'Error occurred: {str(e)}'
+
 
 @app.route('/registration-successful')
 def registration_success():
