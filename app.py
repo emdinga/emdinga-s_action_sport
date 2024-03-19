@@ -6,17 +6,18 @@ from database.database import Database
 import secrets, hashlib, bcrypt, sqlite3
 
 
-db = Database('indoor_booking.db')
 app = Flask(__name__)
+app.config['DATABASE'] = 'database/indoor_booking.db'
 
 def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect('indoor_booking.db')
-    return g.db
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(app.config['DATABASE'])
+    return db
 
 @app.teardown_appcontext
-def close_db(error):
-    db = g.pop('db', None)
+def close_connection(exception):
+    db = getattr(g, '_database', None)
     if db is not None:
         db.close()
 
@@ -80,21 +81,23 @@ def register_user():
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         """Check if the cell number already exists in the database"""
-        db.cursor.execute('''
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('''
             SELECT * FROM User WHERE cell_number = ?
         ''', (cell_number,))
-        existing_user = db.cursor.fetchone()
+        existing_user = cursor.fetchone()
 
         if existing_user:
             """If user already exists, return alert with message"""
             return jsonify({"message": "User already exists. Please recover your password."}), 400
 
         """Insert user data into the database"""
-        db.cursor.execute('''
+        cursor.execute('''
             INSERT INTO User (name, surname, cell_number, password)
             VALUES (?, ?, ?, ?)
         ''', (name, surname, cell_number, hashed_password.decode('utf-8')))
-        db.conn.commit()
+        db.commit()
 
         """ Store user name in the session """
         session['user_name'] = name
