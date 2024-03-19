@@ -8,9 +8,9 @@ db.create_tables()
 
 # Insert some data into the User table
 db.cursor.execute('''
-    INSERT INTO User (name, surname, cell_number, password, hashed_password)
-    VALUES (?, ?, ?, ?, ?)
-''', ('John', 'Doe', '123456789', '', ''))
+    INSERT INTO User (name, surname, cell_number, password, hashed_password, salt)
+    VALUES (?, ?, ?, ?, ?, ?)
+''', ('John', 'Doe', '123456789', '', '', ''))
 
 # Commit the changes
 db.conn.commit()

@@ -18,7 +18,8 @@ class Database:
                 surname TEXT,
                 cell_number TEXT,
                 password TEXT,
-                hashed_password TEXT
+                hashed_password TEXT,
+                salt
             )
         ''')
 
