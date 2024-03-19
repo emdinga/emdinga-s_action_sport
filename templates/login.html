@@ -16,26 +16,29 @@
     <p>Not a member? <a href="/register">Register here</a>.</p>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-            // Collect form data
-            var formData = new FormData(this);
-            // Send POST request to login endpoint
-            fetch('/login', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // If login successful, redirect to dashboard or another page
-                    window.location.href = '/dashboard';
-                } else {
-                    // If login failed, display error message
-                    alert('Login failed. Please check your credentials.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        });
-    </script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        // Collect form data
+        var formData = new FormData(this);
+        // Send POST request to login endpoint
+        fetch('/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // If login successful, redirect to dashboard or another page
+                window.location.href = '/dashboard';
+            } else {
+                // If login failed, return the error message as JSON
+                return response.json().then(data => {
+                    console.error('Login failed:', data.message);
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
 {% endblock %}
 
