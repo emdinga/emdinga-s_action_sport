@@ -184,3 +184,10 @@ button[type="submit"]:hover {
     color: #333; /* Dark gray color */
 }
 
+.welcome-message {
+    position: absolute; /* Position absolutely within its containing element */
+    top: 0; /* Align to the top of the containing element */
+    left: 0; /* Align to the left of the containing element */
+    margin: 20px; /* Add some margin for spacing */
+}
+

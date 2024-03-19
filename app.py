@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """entry"""
 
-from flask import Flask, render_template,request, jsonify
+from flask import Flask, render_template,request, jsonify, session
 from database.database import Database
 import secrets, hashlib, bcrypt
 
@@ -13,6 +13,11 @@ app = Flask(__name__)
 def index():
     """root of the project"""
     return render_template('index.html')
+
+@app.route('/dasgboard')
+def dashboard():
+    """dashboard of the project"""
+    return render_template('dashbaord.html')
 
 @app.route('/login')
 def login_page():
@@ -28,16 +33,20 @@ def login_user():
 
     """Query database to retrieve user data by cell number"""
     db.cursor.execute('''
-        SELECT hashed_password, salt FROM User WHERE cell_number = ?
+        SELECT user_id, name, hashed_password, salt FROM User WHERE cell_number = ?
     ''', (cell_number,))
     user_data = db.cursor.fetchone()
 
     if user_data:
-        hashed_password, salt = user_data
+        user_id, user_name, hashed_password, salt = user_data
         """Hash the password provided by the user with the retrieved salt"""
         hashed_input_password = hashlib.sha256((password + salt).encode()).hexdigest()
         if hashed_input_password == hashed_password:
+            """Save the user's name and ID in the session"""
+            session['user_name'] = user_name
+            session['user_id'] = user_id
             return jsonify({"message": "Login successful"}), 200
+
     return jsonify({"message": "Login failed"}), 401
 
 @app.route('/register', methods=['GET'])
@@ -73,6 +82,9 @@ def register_user():
             VALUES (?, ?, ?, ?)
         ''', (name, surname, cell_number, hashed_password.decode('utf-8')))
         db.conn.commit()
+
+        """ Store user name in the session """
+        session['user_name'] = name
 
         """ Redirect to registration successful page"""
         return redirect('/registration-successful')
