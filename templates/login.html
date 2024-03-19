@@ -6,7 +6,7 @@
 
 {% block content %}
     <h2>Login</h2>
-    <form id="login-form" action="/api/login" method="post">
+    <form id="login-form" action="/login" method="post">
         <label for="cell_number">Cell Number:</label>
         <input type="text" id="cell_number" name="cell_number" required><br><br>
         <label for="password">Password:</label>
@@ -21,7 +21,7 @@
             // Collect form data
             var formData = new FormData(this);
             // Send POST request to login endpoint
-            fetch('/api/login', {
+            fetch('/login', {
                 method: 'POST',
                 body: formData
             })
