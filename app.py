@@ -28,8 +28,13 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    """dashboard of the project"""
-    return render_template('dashbaord.html')
+    """Render the dashboard page"""
+    user_name = session.get('user_name')
+    if user_name:
+        return render_template('dashboard.html', user_name=user_name)
+    else:
+        return redirect('/login')
+
 
 @app.route('/login')
 def login_page():
