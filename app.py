@@ -14,7 +14,7 @@ def index():
     """root of the project"""
     return render_template('index.html')
 
-@app.route('/dasgboard')
+@app.route('/dashboard')
 def dashboard():
     """dashboard of the project"""
     return render_template('dashbaord.html')
