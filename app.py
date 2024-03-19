@@ -4,6 +4,8 @@
 from flask import Flask, render_template,request, jsonify
 from database.database import Database
 
+
+db = Database('indoor_booking.db')
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,6 +23,31 @@ def login_page():
 @app.route('/register', methods=['GET'])
 def show_registration_form():
     return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register():
+    try:
+        """Extract registration data from the request"""
+        name = request.form['name']
+        surname = request.form['surname']
+        cell_number = request.form['cell_number']
+        password = request.form['password']
+
+        """Insert user data into the database"""
+        db.cursor.execute('''
+            INSERT INTO User (name, surname, cell_number, password)
+            VALUES (?, ?, ?, ?)
+        ''', (name, surname, cell_number, password))
+        db.conn.commit()
+
+        """Redirect to registration successful page"""
+        return redirect('/registration-successful')
+    except Exception as e:
+        return f'Error occurred: {str(e)}'
+
+@app.route('/registration-successful')
+def registration_success():
+    return render_template('registration_succ.html')
 
 
 if __name__ == '__main__':
