@@ -58,7 +58,7 @@ def login_user():
             """Save the user's name and ID in the session"""
             session['user_name'] = user_name
             session['user_id'] = user_id
-            return jsonify({"message": "Login successful"}), 200
+            return redirect(url_for('dashboard'))
 
     return jsonify({"message": "Login failed"}), 401
 
