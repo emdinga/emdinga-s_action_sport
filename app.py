@@ -3,6 +3,7 @@
 
 from flask import Flask, render_template,request, jsonify
 from database.database import Database
+import secrets, hashlib, bcrypt
 
 
 db = Database('indoor_booking.db')
@@ -13,25 +14,48 @@ def index():
     """root of the project"""
     return render_template('index.html')
 
-from flask import render_template
-
 @app.route('/login')
 def login_page():
     """Render the login page"""
     return render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def login_user():
+    """Handle POST request to authenticate user login"""
+    data = request.json
+    cell_number = data.get('cell_number')
+    password = data.get('password')
+
+    """Query database to retrieve user data by cell number"""
+    db.cursor.execute('''
+        SELECT hashed_password, salt FROM User WHERE cell_number = ?
+    ''', (cell_number,))
+    user_data = db.cursor.fetchone()
+
+    if user_data:
+        hashed_password, salt = user_data
+        """Hash the password provided by the user with the retrieved salt"""
+        hashed_input_password = hashlib.sha256((password + salt).encode()).hexdigest()
+        if hashed_input_password == hashed_password:
+            return jsonify({"message": "Login successful"}), 200
+    return jsonify({"message": "Login failed"}), 401
+
 @app.route('/register', methods=['GET'])
 def show_registration_form():
     return render_template('register.html')
 
+
 @app.route('/register', methods=['POST'])
-def register():
+def register_user():
     try:
         """Extract registration data from the request"""
         name = request.form['name']
         surname = request.form['surname']
         cell_number = request.form['cell_number']
         password = request.form['password']
+
+        """Hash and salt the password"""
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         """Check if the cell number already exists in the database"""
         db.cursor.execute('''
@@ -47,13 +71,14 @@ def register():
         db.cursor.execute('''
             INSERT INTO User (name, surname, cell_number, password)
             VALUES (?, ?, ?, ?)
-        ''', (name, surname, cell_number, password))
+        ''', (name, surname, cell_number, hashed_password.decode('utf-8')))
         db.conn.commit()
 
-        """Redirect to registration successful page"""
+        """ Redirect to registration successful page"""
         return redirect('/registration-successful')
     except Exception as e:
         return f'Error occurred: {str(e)}'
+
 
 @app.route('/registration-successful')
 def registration_success():
