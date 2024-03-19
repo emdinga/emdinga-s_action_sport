@@ -24,7 +24,7 @@ def login_page():
     """Render the login page"""
     return render_template('login.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login_user', methods=['POST'])
 def login_user():
     """Handle POST request to authenticate user login"""
     data = request.json
@@ -54,7 +54,7 @@ def show_registration_form():
     return render_template('register.html')
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register_user', methods=['POST'])
 def register_user():
     try:
         """Extract registration data from the request"""
