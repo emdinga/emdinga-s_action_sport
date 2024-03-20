@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///indoor_booking.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 class User(db.Model):
     """define table user"""
