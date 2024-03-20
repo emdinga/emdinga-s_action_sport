@@ -21,6 +21,22 @@ class User(db.Model):
     cell_number = db.Column(db.String(20), unique=True)
     hashed_password = db.Column(db.String(64))
     salt = db.Column(db.String(16))
+    bookings = db.relationship('Booking', backref='user', lazy=True)
+
+class Booking(db.Model):
+    """Define the Booking table"""
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    booking_type = db.Column(db.String(50))
+    booking_date = db.Column(db.Date)
+    booking_time = db.Column(db.Time)
+    booking_name = db.Column(db.String(100))
+
+@app.route('/book_online')
+def book_online():
+    """ book online page """
+    return render_template('book-online.html')
+
 
 @app.route('/register_user', methods=['POST'])
 def register_user():
@@ -50,7 +66,6 @@ def register_user():
 
     return jsonify({'message': 'User registered successfully'}), 200
 
-from flask import session, redirect
 
 @app.route('/login_user', methods=['POST'])
 def login_user():

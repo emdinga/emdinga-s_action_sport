@@ -1,0 +1,32 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    Book Online
+{% endblock %}
+
+{% block content %}
+    <h1>Book Online</h1>
+    <form action="/submit-booking" method="post">
+        <label for="booking-type">Select Booking Type:</label>
+        <select name="booking-type" id="booking-type">
+            <option value="social-play">Social Play</option>
+            <option value="party-option">Party Option</option>
+            <option value="corporate-event">Corporate Event</option>
+        </select>
+
+        <label for="booking-date">Select Booking Date:</label>
+        <input type="date" id="booking-date" name="booking-date">
+
+        <label for="booking-time">Select Booking Time:</label>
+        <select name="booking-time" id="booking-time">
+            <!-- Dynamically populate with available time slots -->
+            {% for slot in booking_slots %}
+                <option value="{{ slot }}">{{ slot }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Book Now">
+    </form>
+    <!-- Add any additional content or scripts here -->
+{% endblock %}
+
