@@ -88,12 +88,6 @@ footer {
     100% { top: 50%; left: 90%; }
 {
 
-/* Styles for left and right images */
-.left-image, .right-image {
-    width: 100px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-}
-
 /* Optionally, add margin to create space between the images and the simulated field */
 .left-image {
     margin-right: 10px;
@@ -103,7 +97,6 @@ footer {
     margin-left: 10px;
 }
 
-}
 
 /* Styles for the simulated field */
 .field {
