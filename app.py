@@ -23,17 +23,22 @@ class User(db.Model):
 
 @app.route('/register_user', methods=['POST'])
 def register_user():
-    """register new user"""
+    """Register a new user"""
     name = request.form.get('name')
     surname = request.form.get('surname')
     cell_number = request.form.get('cell_number')
     password = request.form.get('password')
 
+    """Check if a user with the same cell number already exists"""
+    existing_user = User.query.filter_by(cell_number=cell_number).first()
+    if existing_user:
+        return jsonify({'message': 'User with the same cell phone number already exists'}), 409
+
     """Generate salt and hash password"""
     salt = secrets.token_hex(8)
     hashed_password = hashlib.sha256((password + salt).encode()).hexdigest()
 
-    """Create new user record"""
+    """Create a new user record"""
     new_user = User(name=name, surname=surname, cell_number=cell_number,
                     hashed_password=hashed_password, salt=salt)
     db.session.add(new_user)
