@@ -24,11 +24,10 @@ class User(db.Model):
 @app.route('/register_user', methods=['POST'])
 def register_user():
     """register new user"""
-    data = request.json
-    name = data.get('name')
-    surname = data.get('surname')
-    cell_number = data.get('cell_number')
-    password = data.get('password')
+    name = request.form.get('name')
+    surname = request.form.get('surname')
+    cell_number = request.form.get('cell_number')
+    password = request.form.get('password')
 
     """Generate salt and hash password"""
     salt = secrets.token_hex(8)
