@@ -44,9 +44,8 @@ def register_user():
 @app.route('/login_user', methods=['POST'])
 def login_user():
     """ login route"""
-    data = request.json
-    cell_number = data.get('cell_number')
-    password = data.get('password')
+    cell_number = request.form.get('cell_number')
+    password = request.form.get('password')
 
     """Query user from database"""
     user = User.query.filter_by(cell_number=cell_number).first()
@@ -89,4 +88,5 @@ def registration_success():
 
 if __name__ == '__main__':
     with app.app_context():
+        db.create_all()
         app.run(host='0.0.0.0', port=5000, debug=True)
