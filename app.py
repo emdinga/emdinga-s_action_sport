@@ -49,22 +49,28 @@ def register_user():
 
     return jsonify({'message': 'User registered successfully'}), 200
 
+from flask import session, redirect
+
 @app.route('/login_user', methods=['POST'])
 def login_user():
-    """ login route"""
+    """ Login route """
     cell_number = request.form.get('cell_number')
     password = request.form.get('password')
 
-    """Query user from database"""
+    """ Query user from database """
     user = User.query.filter_by(cell_number=cell_number).first()
 
     if user:
-        """Hash input password with retrieved salt"""
+        """ Hash input password with retrieved salt """
         hashed_input_password = hashlib.sha256((password + user.salt).encode()).hexdigest()
         if hashed_input_password == user.hashed_password:
-            return jsonify({'message': 'Login successful'}), 200
+            """Set the user's name in the session"""
+            session['user_name'] = user.name
+            """Redirect to the dashboard"""
+            return redirect('/dashboard')
 
     return jsonify({'message': 'Login failed'}), 401
+
 
 @app.route('/')
 def index():
