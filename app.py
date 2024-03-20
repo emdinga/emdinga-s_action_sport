@@ -83,7 +83,7 @@ def dashboard():
     """Render the dashboard page"""
     user_name = session.get('user_name')
     if user_name:
-        return render_template('dashboard.html', user_name=user_name)
+        return render_template('dashbaord.html', user_name=user_name)
     else:
         return redirect('/login')
 
