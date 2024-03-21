@@ -34,8 +34,8 @@ class Booking(db.Model):
 
 @app.route('/submit_booking', methods=['POST'])
 def submit_booking():
-    """Retrieve form data"""
-    if request.method == 'POST'
+    """retreive form data"""
+    if request.method == 'POST':
         user_id = request.form.get('user_id')
         booking_type = request.form.get('booking_type')
         booking_date = datetime.strptime(request.form.get('booking_date'), '%Y-%m-%d').date()
@@ -43,17 +43,29 @@ def submit_booking():
         booking_name = request.form.get('booking_name')
         payment_method = request.form.get('payment_method')
 
+        """Calculate total amount based on the number of sessions booked (if applicable)"""
+        total_amount = calculate_total_amount(request.form.get('number_of_sessions'))
+
         """Check if the requested time slot is available"""
         if is_slot_available(booking_date, booking_time):
             """Create a new booking"""
-            new_booking = Booking(user_id=user_id, booking_type=booking_type,
-                                  booking_date=booking_date, booking_time=booking_time,
-                                  booking_name=booking_name, payment_method=payment_method)
+            new_booking = Booking(user_id=user_id, booking_type=booking_type, 
+                                  booking_date=booking_date, booking_time=booking_time, 
+                                  booking_name=booking_name, payment_method=payment_method,
+                                  total_amount=total_amount)
             db.session.add(new_booking)
             db.session.commit()
-
-            """Redirect to booking successful page"""
-            return redirect(url_for('booking_successful'))
+            
+            if payment_method == 'cash':
+                """For cash payment, mark booking as success and display booking successful page"""
+                new_booking.status = 'success'
+                db.session.commit()
+                return render_template('booking_successful.html')
+            elif payment_method == 'card':
+                """For card payment, redirect to simulated payment page"""
+                return redirect(url_for('simulated_payment', booking_id=new_booking.id))
+            else:
+                return "Invalid payment method selected."
         else:
             return "Sorry, the selected time slot is already booked. Please choose another time."
 
