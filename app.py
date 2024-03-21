@@ -71,6 +71,20 @@ def submit_booking():
         else:
             return "Sorry, the selected time slot is already booked. Please choose another time."
 
+@app.route('/simulated_payment', methods=['GET', 'POST'])
+def simulated_payment():
+    """Handle payment submission"""
+    if request.method == 'POST':
+        """Process payment logic here"""
+        return redirect(url_for('payment_successful'))
+    
+    """Render payment form"""
+    return render_template('simulated_payment.html')
+
+@app.route('/payment_successful')
+def payment_successful():
+    """render confirmation"""
+    return render_template('payment_successful.html')
 
 @app.route('/book_online')
 def book_online():
