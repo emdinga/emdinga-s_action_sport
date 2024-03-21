@@ -4,7 +4,7 @@
 from flask import Flask, render_template,request, jsonify, session, g, redirect
 from database.database import Database
 import secrets, hashlib, bcrypt, sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -34,6 +34,29 @@ class Booking(db.Model):
     booking_name = db.Column(db.String(100))
     payment_method = db.Column(db.String(50))
     total_amount = db.Column(db.Float)
+
+@app.route('/get_available_time_slots', methods=['POST'])
+def get_available_time_slots():
+    """Retrieve booked time slots for the selected date from the database"""
+    selected_date = request.form['selected_date']
+    booked_slots = get_booked_slots_from_database(selected_date)
+    """Generate all possible time slots from 09:00 AM to 10:00 PM"""
+    all_time_slots = generate_time_slots()
+    """Filter out the booked time slots from the list of all possible time slots"""
+    available_slots = [slot for slot in all_time_slots if slot not in booked_slots]
+    return jsonify({'available_slots': available_slots})
+
+def generate_time_slots():
+    """generate all possible time slots from 09:00 AM to 10:00 PM"""
+    start_time = datetime.strptime('09:00', '%H:%M')
+    end_time = datetime.strptime('22:00', '%H:%M')
+    time_slots = []
+    current_time = start_time
+    while current_time <= end_time:
+        time_slots.append(current_time.strftime('%H:%M'))
+        current_time += timedelta(hours=1)
+    return time_slots
+
 
 @app.route('/submit_booking', methods=['POST'])
 def submit_booking():
