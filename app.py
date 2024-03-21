@@ -71,40 +71,53 @@ def generate_time_slots():
 
 @app.route('/submit_booking', methods=['POST'])
 def submit_booking():
-    """retreive form data"""
+    """Retrieve form data and store it in session"""
     if request.method == 'POST':
-        user_id = request.form.get('user_id')
-        booking_type = request.form.get('booking_type')
-        booking_date = datetime.strptime(request.form.get('booking_date'), '%Y-%m-%d').date()
-        booking_time = datetime.strptime(request.form.get('booking_time'), '%H:%M').time()
-        booking_name = request.form.get('booking_name')
-        payment_method = request.form.get('payment_method')
+        session['booking_details'] = {
+            'user_id': request.form.get('user_id'),
+            'booking_type': request.form.get('booking_type'),
+            'booking_date': request.form.get('booking_date'),
+            'booking_time': request.form.get('booking_time'),
+            'booking_name': request.form.get('booking_name'),
+            'payment_method': request.form.get('payment_method'),
+            'total_amount': 500
+        }
+        return redirect(url_for('process_payment'))
 
-        """Calculate total amount based on the number of sessions booked (if applicable)"""
-        total_amount = calculate_total_amount(request.form.get('number_of_sessions'))
+@app.route('/process_payment', methods=['GET', 'POST'])
+def process_payment():
+    """Process payment based on the selected method"""
+    if 'booking_details' not in session:
+        return redirect(url_for('index'))
 
-        """Check if the requested time slot is available"""
-        if is_slot_available(booking_date, booking_time):
-            """Create a new booking"""
-            new_booking = Booking(user_id=user_id, booking_type=booking_type, 
-                                  booking_date=booking_date, booking_time=booking_time, 
-                                  booking_name=booking_name, payment_method=payment_method,
-                                  total_amount=total_amount)
-            db.session.add(new_booking)
-            db.session.commit()
-            
-            if payment_method == 'cash':
-                """For cash payment, mark booking as success and display booking successful page"""
-                new_booking.status = 'success'
-                db.session.commit()
-                return render_template('booking_successful.html')
-            elif payment_method == 'card':
-                """For card payment, redirect to simulated payment page"""
-                return redirect(url_for('simulated_payment', booking_id=new_booking.id))
-            else:
-                return "Invalid payment method selected."
-        else:
-            return "Sorry, the selected time slot is already booked. Please choose another time."
+    booking_details = session.pop('booking_details')
+
+    payment_method = booking_details['payment_method']
+
+    if payment_method == 'cash':
+        """Save booking details to the database"""
+        save_booking_to_database(booking_details)
+        return render_template('booking_successful.html')
+    elif payment_method == 'card':
+        """Redirect to simulated payment page"""
+        return redirect(url_for('simulated_payment'))
+    else:
+        return "Invalid payment method selected."
+
+def save_booking_to_database(booking_details):
+    """Save booking details to the database"""
+    new_booking = Booking(
+        user_id=booking_details['user_id'],
+        booking_type=booking_details['booking_type'],
+        booking_date=datetime.strptime(booking_details['booking_date'], '%Y-%m-%d').date(),
+        booking_time=datetime.strptime(booking_details['booking_time'], '%H:%M').time(),
+        booking_name=booking_details['booking_name'],
+        payment_method=booking_details['payment_method'],
+        total_amount=booking_details['total_amount']
+    )
+    db.session.add(new_booking)
+    db.session.commit()
+
 
 @app.route('/simulated_payment', methods=['GET', 'POST'])
 def simulated_payment():

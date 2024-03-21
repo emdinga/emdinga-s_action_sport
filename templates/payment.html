@@ -1,0 +1,33 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    Payment Page
+{% endblock %}
+
+{% block content %}
+    <h1>Payment Details</h1>
+    <p>User ID: {{ user_id }}</p>
+    <p>Booking Type: {{ booking_type }}</p>
+    <p>Booking Date: {{ booking_date }}</p>
+    <p>Booking Time: {{ booking_time }}</p>
+    <p>Booking Name: {{ booking_name }}</p>
+    <p>Total Amount: {{ total_amount }}</p>
+
+    <!-- Add form for payment method selection -->
+    <form action="/process_payment" method="post">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+        <input type="hidden" name="booking_type" value="{{ booking_type }}">
+        <input type="hidden" name="booking_date" value="{{ booking_date }}">
+        <input type="hidden" name="booking_time" value="{{ booking_time }}">
+        <input type="hidden" name="booking_name" value="{{ booking_name }}">
+        <input type="hidden" name="total_amount" value="{{ total_amount }}">
+        
+        <label for="payment_method">Select Payment Method:</label>
+        <select name="payment_method" id="payment_method">
+            <option value="card">Card</option>
+            <option value="cash">Cash</option>
+        </select>
+
+        <input type="submit" value="Proceed to Payment">
+    </form>
+{% endblock %}
