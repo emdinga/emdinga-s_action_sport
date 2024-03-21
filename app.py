@@ -32,6 +32,32 @@ class Booking(db.Model):
     booking_time = db.Column(db.Time)
     booking_name = db.Column(db.String(100))
 
+@app.route('/submit_booking', methods=['POST'])
+def submit_booking():
+    """Retrieve form data"""
+    if request.method == 'POST'
+        user_id = request.form.get('user_id')
+        booking_type = request.form.get('booking_type')
+        booking_date = datetime.strptime(request.form.get('booking_date'), '%Y-%m-%d').date()
+        booking_time = datetime.strptime(request.form.get('booking_time'), '%H:%M').time()
+        booking_name = request.form.get('booking_name')
+        payment_method = request.form.get('payment_method')
+
+        """Check if the requested time slot is available"""
+        if is_slot_available(booking_date, booking_time):
+            """Create a new booking"""
+            new_booking = Booking(user_id=user_id, booking_type=booking_type,
+                                  booking_date=booking_date, booking_time=booking_time,
+                                  booking_name=booking_name, payment_method=payment_method)
+            db.session.add(new_booking)
+            db.session.commit()
+
+            """Redirect to booking successful page"""
+            return redirect(url_for('booking_successful'))
+        else:
+            return "Sorry, the selected time slot is already booked. Please choose another time."
+
+
 @app.route('/book_online')
 def book_online():
     """ book online page """

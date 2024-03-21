@@ -3,6 +3,7 @@ header {
     background-color: green;
     color: white;
     padding: 10px;
+    text-align: right; /* Align header content to the right */
 }
 
 /* Add styles for the navigation links */
@@ -14,7 +15,11 @@ nav ul {
 
 nav ul li {
     display: inline;
-    margin-right: 10px;
+    margin-left: 10px; /* Adjust margin between navigation links */
+}
+
+nav ul li:first-child {
+    margin-left: 0; /* Remove margin from the first navigation link */
 }
 
 nav ul li a {
@@ -22,18 +27,12 @@ nav ul li a {
     text-decoration: none;
 }
 
-/* Add styles for the footer */
-footer {
-    background-color: green;
-    color: white;
-    padding: 10px;
-    border-top: 1px solid black;
-}
-
 /* Add styles for the main content area */
 .main-content {
     border: 1px solid black;
     padding: 20px;
+    margin: 20px auto; /* Center the main content area */
+    max-width: 800px; /* Limit the width of the main content area */
 }
 
 /* Adding the field */
@@ -69,7 +68,7 @@ footer {
 /* Optionally, add margin to create space between the images and the simulated field */
 .left-image,
 .right-image {
-    width: calc(50% - 5px); /* Adjust width to fit */
+    width: calc(50% - 10px); /* Adjust width to fit and create space between images */
     max-width: 100%; /* Ensure images don't overflow */
 }
 
@@ -161,3 +160,4 @@ button[type="submit"]:hover {
     margin-top: 60px; /* Adjust margin to prevent overlap with header */
     text-align: center; /* Center the message */
 }
+
