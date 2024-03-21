@@ -21,21 +21,6 @@ nav ul li a {
     color: white;
     text-decoration: none;
 }
-.nav-links {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    text-align: right; /* Align links to the right */
-}
-
-.nav-links li {
-    display: inline;
-    margin-left: 1rem;
-}
-
-.nav-links li:first-child {
-    margin-left: 0; /* Remove margin from the first link */
-}
 
 /* Add styles for the footer */
 footer {
@@ -51,15 +36,11 @@ footer {
     padding: 20px;
 }
 
-/* map styles */
-#map {
-	height: 400px;
-	width: 100%;
-}
-
 /* Adding the field */
 .field {
     position: relative;
+    margin-top: 20px; /* Adjust spacing */
+    width: 100%; /* Ensure full width */
 }
 
 #ball {
@@ -86,51 +67,61 @@ footer {
 }
 
 /* Optionally, add margin to create space between the images and the simulated field */
+.left-image,
+.right-image {
+    width: calc(50% - 5px); /* Adjust width to fit */
+    max-width: 100%; /* Ensure images don't overflow */
+}
+
 .left-image {
-    margin-right: 10px;
+    float: left; /* Float left for left image */
 }
 
 .right-image {
-    margin-left: 10px;
+    float: right; /* Float right for right image */
 }
 
 /* form styles */
 form {
-        margin-top: 20px;
-        max-width: 400px;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
+    margin-top: 20px;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: auto; /* Center the form */
 }
 
 label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 input[type="text"] {
-            		width: 100%;
-            		padding: 10px;
-            		margin-bottom: 10px;
-            		border: 1px solid #ccc;
-            		border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-
 button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: auto; /* Center the button */
+    margin-top: 10px; /* Add some top margin */
 }
 
 button[type="submit"]:hover {
-	background-color: #45a049;
+    background-color: #45a049;
 }
+
 /* Styles for contact info */
 .contact-info {
     margin-top: 20px;
@@ -167,9 +158,6 @@ button[type="submit"]:hover {
 }
 
 .welcome-message {
-    position: absolute; /* Position absolutely within its containing element */
-    top: 0; /* Align to the top of the containing element */
-    left: 0; /* Align to the left of the containing element */
-    margin: 20px; /* Add some margin for spacing */
+    margin-top: 60px; /* Adjust margin to prevent overlap with header */
+    text-align: center; /* Center the message */
 }
-

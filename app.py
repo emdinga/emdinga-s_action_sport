@@ -35,7 +35,7 @@ class Booking(db.Model):
 @app.route('/book_online')
 def book_online():
     """ book online page """
-    return render_template('book-online.html')
+    return render_template('booking_form.html')
 
 
 @app.route('/register_user', methods=['POST'])
