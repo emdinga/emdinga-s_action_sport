@@ -31,7 +31,6 @@
 <script>
 document.getElementById('booking-date').addEventListener('change', function() {
     var selectedDate = this.value;
-    // Send an AJAX request to fetch booked time slots for the selected date
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/get_available_time_slots', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -39,22 +38,27 @@ document.getElementById('booking-date').addEventListener('change', function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
-                var bookedSlots = response.booked_slots;
-                // Update the dropdown menu options with the fetched booked time slots
-                var bookingTimeDropdown = document.getElementById('booking-time');
-                bookingTimeDropdown.innerHTML = '';  // Clear existing options
-                for (var i = 0; i < bookedSlots.length; i++) {
-                    var option = document.createElement('option');
-                    option.text = bookedSlots[i];
-                    option.value = bookedSlots[i];
-                    bookingTimeDropdown.appendChild(option);
-                }
+                var availableSlots = response.available_slots;
+                // Do something with the available time slots, such as updating the dropdown menu
+                updateDropdownMenu(availableSlots);
             } else {
-                console.error('Failed to fetch booked time slots.');
+                console.error('Failed to fetch available time slots.');
             }
         }
     };
     xhr.send('selected_date=' + selectedDate);
 });
+
+function updateDropdownMenu(availableSlots) {
+    var bookingTimeDropdown = document.getElementById('booking-time');
+    bookingTimeDropdown.innerHTML = '';  // Clear existing options
+    availableSlots.forEach(function(slot) {
+        var option = document.createElement('option');
+        option.text = slot;
+        option.value = slot;
+        bookingTimeDropdown.appendChild(option);
+    });
+}
+
 </script>
 {% endblock %}

@@ -69,7 +69,6 @@ def generate_time_slots():
         current_time += timedelta(hours=1)
     return time_slots
 
-
 @app.route('/submit_booking', methods=['POST'])
 def submit_booking():
     """retreive form data"""
