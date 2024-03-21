@@ -33,7 +33,7 @@ document.getElementById('booking-date').addEventListener('change', function() {
     var selectedDate = this.value;
     // Send an AJAX request to fetch booked time slots for the selected date
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/get_booked_slots', true);
+    xhr.open('POST', '/get_available_time_slots', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
