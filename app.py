@@ -31,6 +31,8 @@ class Booking(db.Model):
     booking_date = db.Column(db.Date)
     booking_time = db.Column(db.Time)
     booking_name = db.Column(db.String(100))
+    payment_method = db.Column(db.String(50))
+    total_amount = db.Column(db.Float)
 
 @app.route('/submit_booking', methods=['POST'])
 def submit_booking():
