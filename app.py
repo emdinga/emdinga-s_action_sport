@@ -35,6 +35,18 @@ class Booking(db.Model):
     payment_method = db.Column(db.String(50))
     total_amount = db.Column(db.Float)
 
+
+def get_booked_slots_from_database(selected_date):
+    """Query your database to retrieve the booked time slots for the selected date"""
+
+    """Query bookings for the selected date"""
+    bookings = Booking.query.filter_by(booking_date=selected_date).all()
+
+    """Extract booked time slots from the bookings"""
+    booked_slots = [booking.booking_time.strftime('%H:%M') for booking in bookings]
+
+    return booked_slots
+
 @app.route('/get_available_time_slots', methods=['POST'])
 def get_available_time_slots():
     """Retrieve booked time slots for the selected date from the database"""
