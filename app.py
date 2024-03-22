@@ -96,11 +96,11 @@ def save_payment():
     booking_details = session.pop('booking_details')
     payment_method = request.form.get('payment_method')
 
-    if booking_details['payment_method'] == 'cash':
+    if payment_method == 'cash':
         """Save booking details to the database"""
         save_booking_to_database(booking_details)
         return render_template('booking_successful.html')
-    elif booking_details['payment_method'] == 'card':
+    elif payment_method == 'card':
         """Process card payment"""
         card_number = request.form.get('card-number')
         expiration_date = request.form.get('expiration-date')
@@ -115,6 +115,7 @@ def save_payment():
             return "Payment failed. Please try again."
     else:
         return "Invalid payment method selected."
+
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
