@@ -93,8 +93,8 @@ def save_payment():
     if 'booking_details' not in session:
         return redirect(url_for('index'))
 
-      booking_details = session.pop('booking_details')
-      payment_method = request.form.get('payment_method')
+    booking_details = session.pop('booking_details')
+    payment_method = request.form.get('payment_method')
 
     if booking_details['payment_method'] == 'cash':
         """Save booking details to the database"""
