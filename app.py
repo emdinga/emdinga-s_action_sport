@@ -116,6 +116,15 @@ def save_payment():
     else:
         return "Invalid payment method selected."
 
+def process_payment(card_number, expiration_date, cvv):
+    """
+    Placeholder function for processing card payment.
+    """
+    if card_number and expiration_date and cvv:
+        return True
+    else:
+        return False
+
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
