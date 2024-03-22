@@ -87,23 +87,32 @@ def submit_booking():
 
         return render_template('payment.html', booking_details=booking_details)
 
-@app.route('/save_payment', methods=['GET', 'POST'])
+@app.route('/save_payment', methods=['POST'])
 def save_payment():
     """Process payment based on the selected method"""
     if 'booking_details' not in session:
         return redirect(url_for('index'))
 
-    booking_details = session.pop('booking_details')
+      booking_details = session.pop('booking_details')
+      payment_method = request.form.get('payment_method')
 
-    payment_method = request.form.get('payment_method')
-
-    if payment_method == 'cash':
+    if booking_details['payment_method'] == 'cash':
         """Save booking details to the database"""
         save_booking_to_database(booking_details)
         return render_template('booking_successful.html')
-    elif payment_method == 'card':
-        """Redirect to simulated payment page"""
-        return redirect(url_for('simulated_payment'))
+    elif booking_details['payment_method'] == 'card':
+        """Process card payment"""
+        card_number = request.form.get('card-number')
+        expiration_date = request.form.get('expiration-date')
+        cvv = request.form.get('cvv')
+
+        """Perform payment processing here"""
+        if payment_successful(card_number, expiration_date, cvv):
+            """Save booking details to the database"""
+            save_booking_to_database(booking_details)
+            return render_template('booking_successful.html')
+        else:
+            return "Payment failed. Please try again."
     else:
         return "Invalid payment method selected."
 
@@ -122,15 +131,6 @@ def save_booking_to_database(booking_details):
     db.session.commit()
 
 
-@app.route('/simulated_payment', methods=['GET', 'POST'])
-def simulated_payment():
-    """Handle payment submission"""
-    if request.method == 'POST':
-        """Process payment logic here"""
-        return redirect(url_for('payment_successful'))
-    
-    """Render payment form"""
-    return render_template('simulated_payment.html')
 
 @app.route('/payment_successful')
 def payment_successful():
