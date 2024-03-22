@@ -82,6 +82,9 @@ def submit_booking():
             'payment_method': request.form.get('payment_method'),
             'total_amount': 500
         }
+
+        booking_details = session.get('booking_details')
+
         return render_template('payment.html', booking_details=booking_details)
 
 @app.route('/save_payment', methods=['GET', 'POST'])
