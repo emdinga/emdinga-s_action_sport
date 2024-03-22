@@ -107,7 +107,7 @@ def save_payment():
         cvv = request.form.get('cvv')
 
         """Perform payment processing here"""
-        if payment_successful(card_number, expiration_date, cvv):
+        if process_payment(card_number, expiration_date, cvv):
             """Save booking details to the database"""
             save_booking_to_database(booking_details)
             return render_template('booking_successful.html')
