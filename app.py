@@ -111,7 +111,7 @@ def process_payment():
     booking_details = session.get('booking_details')
 
     """Pass booking details to the payment page"""
-    return render_template('process_payment.html', booking_details=booking_details)
+    return render_template('payment.html', booking_details=booking_details)
 
 
 def save_booking_to_database(booking_details):
