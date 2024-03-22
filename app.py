@@ -125,6 +125,15 @@ def process_payment(card_number, expiration_date, cvv):
     else:
         return False
 
+@app.route('/simulated_payment', methods=['POST'])
+def simulated_payment():
+    """Process the simulated payment form submission"""
+    """Extract card details from the form"""
+    card_number = request.form.get('card-number')
+    expiration_date = request.form.get('expiration-date')
+    cvv = request.form.get('cvv')
+
+    return redirect(url_for('payment_successful'))
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
