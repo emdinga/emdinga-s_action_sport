@@ -85,7 +85,7 @@ def submit_booking():
         return redirect(url_for('process_payment'))
 
 @app.route('/save_payment', methods=['GET', 'POST'])
-def save-payment():
+def save_payment():
     """Process payment based on the selected method"""
     if 'booking_details' not in session:
         return redirect(url_for('index'))
@@ -106,7 +106,7 @@ def save-payment():
 def process_payment():
     """Process payment based on the selected method"""
         if 'booking_details' not in session:
-        return redirect(url_for('index'))
+            return redirect(url_for('index'))
 
     booking_details = session.get('booking_details')
 
