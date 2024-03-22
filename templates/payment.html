@@ -54,24 +54,20 @@
             </form>
         </div>
     </div>
-
     <!-- JavaScript to control the modal -->
-    <script>
-        function openPaymentModal() {
-            var paymentMethod = "{{ booking_details.payment_method }}";
-            if (paymentMethod === 'card') {
-                document.getElementById("paymentModal").style.display = "block";
-            } else {
-                // Proceed to payment logic for non-card payments
-                // This can be an AJAX request or a form submission
-                // For now, let's just log a message
-                console.log("Proceeding to payment for non-card payment method");
-            }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var paymentMethod = "{{ booking_details.payment_method }}";
+        if (paymentMethod === 'card') {
+            document.getElementById("paymentModal").style.display = "block";
+        } else {
+            console.log("Proceeding to payment for non-card payment method");
         }
+    });
 
-        function closePaymentModal() {
-            document.getElementById("paymentModal").style.display = "none";
-        }
-    </script>
+    function closePaymentModal() {
+        document.getElementById("paymentModal").style.display = "none";
+    }
+</script>
+
 {% endblock %}
-
