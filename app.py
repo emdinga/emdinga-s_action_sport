@@ -82,7 +82,7 @@ def submit_booking():
             'payment_method': request.form.get('payment_method'),
             'total_amount': 500
         }
-        return redirect(url_for('process_payment'))
+        return render_template('payment.html', booking_details=booking_details)
 
 @app.route('/save_payment', methods=['GET', 'POST'])
 def save_payment():
@@ -101,17 +101,6 @@ def save_payment():
         return redirect(url_for('simulated_payment'))
     else:
         return "Invalid payment method selected."
-
-@app.route('/process_payment', methods=['GET', 'POST'])
-def process_payment():
-    """Process payment based on the selected method"""
-    if 'booking_details' not in session:
-        return redirect(url_for('index'))
-
-    booking_details = session.get('booking_details')
-
-    """Pass booking details to the payment page"""
-    return render_template('payment.html', booking_details=booking_details)
 
 
 def save_booking_to_database(booking_details):

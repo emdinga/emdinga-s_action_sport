@@ -14,7 +14,7 @@
     <p>Total Amount: {{ total_amount }}</p>
 
     <!-- Add form for payment method selection -->
-    <form action="/process_payment" method="post">
+    <form action="/save_payment" method="post">
         <input type="hidden" name="user_id" value="{{ user_id }}">
         <input type="hidden" name="booking_type" value="{{ booking_type }}">
         <input type="hidden" name="booking_date" value="{{ booking_date }}">
