@@ -13,8 +13,23 @@
     <p>Booking Name: {{ booking_details.booking_name }}</p>
     <p>Total Amount: {{ booking_details.total_amount }}</p>
 
-    <!-- Add button to open the simulated payment modal only if payment method is card -->
-    <button onclick="openPaymentModal()">Proceed to Payment</button>
+    <!-- Add form for payment method selection -->
+    <form action="/save_payment" method="post">
+        <input type="hidden" name="user_id" value="{{ booking_details.user_id }}">
+        <input type="hidden" name="booking_type" value="{{ booking_details.booking_type }}">
+        <input type="hidden" name="booking_date" value="{{ booking_details.booking_date }}">
+        <input type="hidden" name="booking_time" value="{{ booking_details.booking_time }}">
+        <input type="hidden" name="booking_name" value="{{ booking_details.booking_name }}">
+        <input type="hidden" name="total_amount" value="{{ booking_details.total_amount }}">
+        
+        <label for="payment_method">Select Payment Method:</label>
+        <select name="payment_method" id="payment_method">
+            <option value="card">Card</option>
+            <option value="cash">Cash</option>
+        </select>
+
+        <button type="submit">Proceed to Payment</button>
+    </form>
 
     <!-- Simulated Payment Modal -->
     <div id="paymentModal" class="modal" style="display: none;">
@@ -59,3 +74,4 @@
         }
     </script>
 {% endblock %}
+
