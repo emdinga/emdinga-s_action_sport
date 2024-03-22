@@ -95,6 +95,8 @@ def save_payment():
 
     booking_details = session.pop('booking_details')
 
+    payment_method = request.form.get('payment_method')
+
     if payment_method == 'cash':
         """Save booking details to the database"""
         save_booking_to_database(booking_details)
@@ -104,7 +106,6 @@ def save_payment():
         return redirect(url_for('simulated_payment'))
     else:
         return "Invalid payment method selected."
-
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
