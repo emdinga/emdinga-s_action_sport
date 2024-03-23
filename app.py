@@ -6,7 +6,19 @@ from database.database import Database
 import secrets, hashlib, bcrypt, sqlite3
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail, Message
 
+
+"""Configure email settings for Gmail """
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'emdinga@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Mbhamalih123'
+app.config['MAIL_DEFAULT_SENDER'] = 'emdinga@gmail.com'
+
+mail = Mail(app)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///indoor_booking.db'
@@ -35,8 +47,41 @@ class Booking(db.Model):
     payment_method = db.Column(db.String(50))
     total_amount = db.Column(db.Float)
 
+@app.route('/thank_you')
+def thank_you():
+    """ thank you file"""
+    return render_template('thank_you.html')
+
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    """Retrieve data from the form"""
+    name = request.form.get('name')
+    email = request.form.get('email')
+    message_body = request.form.get('message')
+
+    """Create the message"""
+    message = Message(subject='Contact Form Submission',
+                      sender='emdinga@gmail.com',
+                      recipients=['emdinga@gmail.com'])
+    message.body = f"Name: {name}\nEmail: {email}\nMessage: {message_body}"
+
+    try:
+        """Send the email"""
+        mail.send(message)
+        flash('Your message has been sent successfully.', 'success')
+    except Exception as e:
+        flash(f'An error occurred while sending your message: {str(e)}', 'error')
+
+    return redirect(url_for('contact_us.html'))
+
+@app.route('/contact_us')
+def contact_us():
+    """ contact us"""
+    return render_template('contact_us.html')
+
 @app.route('/about')
 def about ():
+    """ about FOCA"""
     return render_template('about.html')
 
 def get_booked_slots_from_database(selected_date):
