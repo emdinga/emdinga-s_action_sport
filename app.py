@@ -142,12 +142,6 @@ def process_simulated_payment():
                     'cvv': cvv
                 })
                 return render_template('booking_successful.html')
-            else:
-                return "Card details are incomplete. Please try again."
-        else:
-            return "Invalid payment method."
-    else:
-        return "Booking details or payment method not found."
 
 
 def save_booking_to_database(booking_details):
