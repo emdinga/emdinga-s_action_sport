@@ -110,7 +110,8 @@ def save_payment():
 @app.route('/simulated_payment')
 def simulated_payment():
     """ render simulated payment template"""
-    return render_template('simulated_payment.html')
+    booking_details = session.get('booking_details')
+    return render_template('simulated_payment.html', booking_details=booking_details)
 
 @app.route('/process_simulated_payment', methods=['POST'])
 def process_simulated_payment():
