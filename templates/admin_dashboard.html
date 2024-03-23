@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th>User Name</th>
+		    <th>Cell Number</th>
                     <th>Booking Type</th>
                     <th>Booking Date</th>
                     <th>Booking Time</th>
@@ -22,6 +23,7 @@
                 {% for booking in bookings %}
                 <tr>
                     <td>{{ booking.booking_name }}</td>
+		    <td>{{ booking.user.cell_number }}</td>
                     <td>{{ booking.booking_type }}</td>
                     <td>{{ booking.booking_date }}</td>
                     <td>{{ booking.booking_time }}</td>
