@@ -175,18 +175,6 @@ button[type="submit"]:hover {
 }
 
 /* styles for the about page */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header, footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-}
 
 .about_container {
     display: flex;
