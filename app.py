@@ -265,7 +265,7 @@ def login_user():
         """Set the admin name in the session"""
         session['user_name'] = 'Admin'
         """Redirect to the admin dashboard"""
-        return redirect('/admin_dashboard')
+        return render_template('admin_dashboard.html')
 
     """ Query user from database """
     user = User.query.filter_by(cell_number=cell_number).first()
