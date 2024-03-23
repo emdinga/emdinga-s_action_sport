@@ -8,6 +8,13 @@
     <h1>Simulated Payment</h1>
     <form class="payment-form" action="/process_simulated_payment" method="post">
         <!-- Payment form fields -->
+        <input type="hidden" name="user_id" value="{{ booking_details.user_id }}">
+        <input type="hidden" name="booking_type" value="{{ booking_details.booking_type }}">
+        <input type="hidden" name="booking_date" value="{{ booking_details.booking_date }}">
+        <input type="hidden" name="booking_time" value="{{ booking_details.booking_time }}">
+        <input type="hidden" name="booking_name" value="{{ booking_details.booking_name }}">
+        <input type="hidden" name="total_amount" value="{{ booking_details.total_amount }}">
+
         <div class="form-group">
             <label for="card-number">Card Number:</label>
             <input type="text" id="card-number" name="card-number" required>
