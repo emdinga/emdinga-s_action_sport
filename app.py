@@ -115,33 +115,40 @@ def simulated_payment():
 
 @app.route('/process_simulated_payment', methods=['POST'])
 def process_simulated_payment():
-    """Retrieve form data"""
+    """ process simulated payment"""
     card_number = request.form.get('card-number')
     expiration_date = request.form.get('expiration-date')
     cvv = request.form.get('cvv')
-    user_id = request.form.get('user_id')
-    booking_type = request.form.get('booking_type')
-    booking_date = request.form.get('booking_date')
-    booking_time = request.form.get('booking_time')
-    booking_name = request.form.get('booking_name')
-    total_amount = request.form.get('total_amount')
 
-    """Check for empty fields"""
-    if not card_number or not expiration_date or not cvv:
-        return "Please fill in all required fields.", 400
+    booking_details = session.get('booking_details')
 
-    """Save booking details to the database"""
-    save_booking_to_database({
-        'user_id': user_id,
-        'booking_type': booking_type,
-        'booking_date': booking_date,
-        'booking_time': booking_time,
-        'booking_name': booking_name,
-        'total_amount': total_amount
-    })
+    if booking_details and 'payment_method' in booking_details:
+        payment_method = booking_details['payment_method']
 
-    # Render payment successful page
-    return render_template('payment_successful.html')
+        if payment_method == 'card':
+            """Process card payment"""
+            if card_number and expiration_date and cvv:
+                """Save booking details to the database"""
+                save_booking_to_database({
+                    'user_id': booking_details['user_id'],
+                    'booking_type': booking_details['booking_type'],
+                    'booking_date': booking_details['booking_date'],
+                    'booking_time': booking_details['booking_time'],
+                    'booking_name': booking_details['booking_name'],
+                    'total_amount': booking_details['total_amount'],
+                    'payment_method': payment_method,
+                    'card_number': card_number,
+                    'expiration_date': expiration_date,
+                    'cvv': cvv
+                })
+                return render_template('booking_successful.html')
+            else:
+                return "Card details are incomplete. Please try again."
+        else:
+            return "Invalid payment method."
+    else:
+        return "Booking details or payment method not found."
+
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
