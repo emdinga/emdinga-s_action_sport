@@ -102,6 +102,7 @@ def save_payment():
         return render_template('booking_successful.html')
     elif payment_method == 'card':
         """Redirect to simulated payment page"""
+        session['booking_details'] = booking_details
         return redirect(url_for('simulated_payment'))
     else:
         return "Invalid payment method selected."
@@ -111,18 +112,35 @@ def simulated_payment():
     """ render simulated payment template"""
     return render_template('simulated_payment.html')
 
-@app.route('/process_simulated_payment', methods=['GET', 'POST'])
+@app.route('/process_simulated_payment', methods=['POST'])
 def process_simulated_payment():
-    """Render the simulated payment form"""
-    if request.method == 'POST':
-        """Process the simulated payment form submission"""
-        card_number = request.form.get('card-number')
-        expiration_date = request.form.get('expiration-date')
-        cvv = request.form.get('cvv')
-        save_booking_to_database(session.get('booking_details'))
-        return render_template('booking_successful.html')
-    else:
-        return render_template('simulated_payment.html')
+    """Retrieve form data"""
+    card_number = request.form.get('card-number')
+    expiration_date = request.form.get('expiration-date')
+    cvv = request.form.get('cvv')
+    user_id = request.form.get('user_id')
+    booking_type = request.form.get('booking_type')
+    booking_date = request.form.get('booking_date')
+    booking_time = request.form.get('booking_time')
+    booking_name = request.form.get('booking_name')
+    total_amount = request.form.get('total_amount')
+
+    """Check for empty fields"""
+    if not card_number or not expiration_date or not cvv:
+        return "Please fill in all required fields.", 400
+
+    """Save booking details to the database"""
+    save_booking_to_database({
+        'user_id': user_id,
+        'booking_type': booking_type,
+        'booking_date': booking_date,
+        'booking_time': booking_time,
+        'booking_name': booking_name,
+        'total_amount': total_amount
+    })
+
+    # Render payment successful page
+    return render_template('payment_successful.html')
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
