@@ -106,8 +106,13 @@ def save_payment():
     else:
         return "Invalid payment method selected."
 
-@app.route('/simulated_payment', methods=['GET', 'POST'])
+@app.route('/simulated_payment')
 def simulated_payment():
+    """ render simulated payment template"""
+    return render_template('simulated_payment.html')
+
+@app.route('/process_simulated_payment', methods=['GET', 'POST'])
+def process_simulated_payment():
     """Render the simulated payment form"""
     if request.method == 'POST':
         """Process the simulated payment form submission"""
