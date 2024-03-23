@@ -35,6 +35,9 @@ class Booking(db.Model):
     payment_method = db.Column(db.String(50))
     total_amount = db.Column(db.Float)
 
+@app.route('/about')
+def about ():
+    return render_template('about.html')
 
 def get_booked_slots_from_database(selected_date):
     """Query your database to retrieve the booked time slots for the selected date"""
