@@ -272,7 +272,9 @@ def login_user():
         """Set the admin name in the session"""
         session['user_name'] = 'Admin'
         """Redirect to the admin dashboard"""
-        return render_template('admin_dashboard.html')
+        bookings = upcoming_bookings()
+
+        return render_template('admin_dashboard.html', bookings=bookings)
 
     """ Query user from database """
     user = User.query.filter_by(cell_number=cell_number).first()
