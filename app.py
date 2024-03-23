@@ -249,7 +249,7 @@ def register_user():
 
     return jsonify({'message': 'User registered successfully'}), 200
 
-@app.route('/admin')
+@app.route('/admin_dashboard')
 def admin_dashboard():
     """admin dashboard"""
     bookings = Booking.query.all()
