@@ -9,6 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 
 
+app = Flask(__name__)
+mail = Mail(app)
 """Configure email settings for Gmail """
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -17,10 +19,6 @@ app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'emdinga@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Mbhamalih123'
 app.config['MAIL_DEFAULT_SENDER'] = 'emdinga@gmail.com'
-
-mail = Mail(app)
-
-app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///indoor_booking.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
