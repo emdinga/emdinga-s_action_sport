@@ -1,0 +1,38 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Bookings</h1>
+        {% if bookings %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Booking Type</th>
+                    <th>Booking Date</th>
+                    <th>Booking Time</th>
+                    <th>Payment Method</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.booking_name }}</td>
+                    <td>{{ booking.booking_type }}</td>
+                    <td>{{ booking.booking_date }}</td>
+                    <td>{{ booking.booking_time }}</td>
+                    <td>{{ booking.payment_method }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No upcoming bookings</p>
+        {% endif %}
+    </div>
+{% endblock %}
+

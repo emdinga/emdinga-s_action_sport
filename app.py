@@ -26,6 +26,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+ADMIN_USERNAME = '0000000000'
+ADMIN_PASSWORD = 'admin123'
+
 class User(db.Model):
     """define table user"""
     id = db.Column(db.Integer, primary_key=True)
@@ -248,12 +251,23 @@ def register_user():
 
     return jsonify({'message': 'User registered successfully'}), 200
 
+@app.route('/admin')
+def admin_dashboard():
+    """admin dashboard"""
+    bookings = Booking.query.all()
+    return render_template('admin_dashboard.html', bookings=bookings)
 
 @app.route('/login_user', methods=['POST'])
 def login_user():
     """ Login route """
     cell_number = request.form.get('cell_number')
     password = request.form.get('password')
+
+    if cell_number == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        """Set the admin name in the session"""
+        session['user_name'] = 'Admin'
+        """Redirect to the admin dashboard"""
+        return redirect('/admin_dashboard')
 
     """ Query user from database """
     user = User.query.filter_by(cell_number=cell_number).first()
@@ -268,7 +282,6 @@ def login_user():
             return redirect('/dashboard')
 
     return jsonify({'message': 'Login failed'}), 401
-
 
 @app.route('/')
 def index():
