@@ -101,39 +101,23 @@ def save_payment():
         save_booking_to_database(booking_details)
         return render_template('booking_successful.html')
     elif payment_method == 'card':
-        """Process card payment"""
-        card_number = request.form.get('card-number')
-        expiration_date = request.form.get('expiration-date')
-        cvv = request.form.get('cvv')
-
-        """Perform payment processing here"""
-        if process_payment(card_number, expiration_date, cvv):
-            """Save booking details to the database"""
-            save_booking_to_database(booking_details)
-            return render_template('booking_successful.html')
-        else:
-            return "Payment failed. Please try again."
+        """Redirect to simulated payment page"""
+        return redirect(url_for('simulated_payment'))
     else:
         return "Invalid payment method selected."
 
-def process_payment(card_number, expiration_date, cvv):
-    """
-    Placeholder function for processing card payment.
-    """
-    if card_number and expiration_date and cvv:
-        return True
-    else:
-        return False
-
-@app.route('/simulated_payment', methods=['POST'])
+@app.route('/simulated_payment', methods=['GET', 'POST'])
 def simulated_payment():
-    """Process the simulated payment form submission"""
-    """Extract card details from the form"""
-    card_number = request.form.get('card-number')
-    expiration_date = request.form.get('expiration-date')
-    cvv = request.form.get('cvv')
-
-    return redirect(url_for('payment_successful'))
+    """Render the simulated payment form"""
+    if request.method == 'POST':
+        """Process the simulated payment form submission"""
+        card_number = request.form.get('card-number')
+        expiration_date = request.form.get('expiration-date')
+        cvv = request.form.get('cvv')
+        save_booking_to_database(session.get('booking_details'))
+        return render_template('booking_successful.html')
+    else:
+        return render_template('simulated_payment.html')
 
 def save_booking_to_database(booking_details):
     """Save booking details to the database"""
