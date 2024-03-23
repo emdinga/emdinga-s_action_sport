@@ -249,11 +249,18 @@ def register_user():
 
     return jsonify({'message': 'User registered successfully'}), 200
 
+def upcoming_bookings():
+    """Query upcoming bookings from the database"""
+    current_date = datetime.now().date()
+    upcoming_bookings = Booking.query.filter(Booking.booking_date >= current_date).all()
+    return upcoming_bookings
+
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    """admin dashboard"""
-    bookings = Booking.query.all()
+    """Render the admin dashboard with upcoming bookings"""
+    bookings = upcoming_bookings()
     return render_template('admin_dashboard.html', bookings=bookings)
+
 
 @app.route('/login_user', methods=['POST'])
 def login_user():
