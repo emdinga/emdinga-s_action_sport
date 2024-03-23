@@ -98,8 +98,8 @@ button[type="submit"]:hover {
 
 /* Field styles */
 .field {
-    position: relative;
-    margin-top: 20px;
+	width: 80%; /* Set width to 80% */
+	margin: 0 auto; /* Center the field */
 }
 
 /* Ball and goal styles */
@@ -129,9 +129,9 @@ button[type="submit"]:hover {
 /* Optionally, adjust image styles */
 .left-image,
 .right-image {
-    width: calc(50% - 15px);
-    max-width: 75%;
-    margin-bottom: 15px; /* Add margin between images and field */
+    width: 10%;
+    max-width: 100%;
+    margin-bottom: 10px; /* Add margin between images and field */
 }
 
 /* Additional styles for contact and pricing info */
