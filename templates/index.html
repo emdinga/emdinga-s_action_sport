@@ -1,22 +1,61 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Simple Map
+    Welcome to FOCA
 {% endblock %}
 
 {% block content %}
-    <h3>Welcome to Football on Court Africa</h3>
-    <p>Experience the thrill of indoor football like never before.</p>
-
-    <!-- Simulated field -->
-    <div class="simulated-field">
-        <!-- Add your simulated football field content here -->
-        <div id="field"></div>
-        <div id="ball"></div>
-        <div class="goal"></div>
+    <div class="background-images">
+        <div class="background-image" id="indoor.jpg"></div>
+        <div class="background-image" id="indoor2.jpg"></div>
+        <div class="background-image" id="indoor.jpg"></div>
     </div>
 
-    <div class="field">
-        <!-- If you have other content, you can place it here -->
+    <div class="text-overlay">
+        <h1 id="main-heading">WELCOME TO FOCA</h1>
+        <h2 id="sub-heading">JOIN US AND HAVE FUN</h2>
+	<h3 id="main-heading">EVENTS AND PARTIES</h3>
+	<h4 id="main-heading">SOCIAL PLAY</h4>
+	<h5 id="main-heading">CORPORATE EVENTS</h5>
+        <a href="/login" class="btn">Book Now</a>
     </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.background-image');
+    const mainHeading = document.getElementById('main-heading');
+    const subHeading = document.getElementById('sub-heading');
+    const btn = document.querySelector('.btn');
+
+    let currentIndex = 0;
+
+    // Initial text and background image
+    const texts = [
+        { main: 'WELCOME TO FOCA', sub: 'JOIN US AND HAVE FUN' },
+        { main: 'EVENTS AND PARTIES', sub: 'JOIN US AND HAVE FUN' },
+        { main: 'SOCIAL PLAY', sub: 'JOIN US AND HAVE FUN' },
+        { main: 'CORPORATE EVENTS', sub: 'JOIN US AND HAVE FUN' }
+    ];
+
+    // Function to change text and background image
+    function changeTextAndImage() {
+        // Change text
+        mainHeading.textContent = texts[currentIndex].main;
+        subHeading.textContent = texts[currentIndex].sub;
+
+        // Change background image
+        images.forEach(image => image.style.opacity = 0);
+        images[currentIndex].style.opacity = 1;
+
+        // Increment index
+        currentIndex = (currentIndex + 1) % images.length;
+    }
+
+    // Initial call to change text and image
+    changeTextAndImage();
+
+    // Set interval to change text and image every 3 seconds
+    setInterval(changeTextAndImage, 3000);
+});
+</script>
 {% endblock %}
+
