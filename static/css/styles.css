@@ -173,23 +173,51 @@ button[type="submit"]:hover {
 
 /* styles for the about page */
 
-.about_container {
+.about-container {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 
 .left-side, .middle-side, .right-side {
     width: 30%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
-.left-side, .middle-side {
-    margin-right: 20px;
+.left-side h2, .middle-side h2, .right-side h2 {
+    color: #333;
 }
 
-.right-side {
-    text-align: justify;
+.left-side p, .middle-side p, .right-side p {
+    color: #666;
+    line-height: 1.6;
 }
+
+.right-side ul {
+    list-style: none;
+    padding: 0;
+}
+
+.right-side li {
+    margin-bottom: 5px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
 /* Style for background images */
 .background-images {
     position: relative;
