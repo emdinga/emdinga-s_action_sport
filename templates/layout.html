@@ -11,11 +11,16 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="contact_us">Contact</a></li>
                 <li><a href="/login">Login</a></li>
             </ul>
         </nav>
     </header>
+    <div class="logo-container">
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='images/indoo_logo.png') }}" alt="Logo">
+        </a>
+    </div>
 
     <div class="content">
         {% block content %}

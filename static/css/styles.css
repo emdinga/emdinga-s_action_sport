@@ -243,4 +243,18 @@ button[type="submit"]:hover {
 .btn:hover {
     background-color: #e65c00;
 }
+/* styles.css */
 
+.logo-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.logo-container img {
+    display: block;
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+}

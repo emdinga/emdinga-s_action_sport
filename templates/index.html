@@ -6,9 +6,9 @@
 
 {% block content %}
     <div class="background-images">
-        <div class="background-image" id="static/images/indoor.jpg"></div>
-        <div class="background-image" id="static/images/indoor2.jpg"></div>
-        <div class="background-image" id="static/images/indoor.jpg"></div>
+        <div class="background-image" style="background-image: url('{{ url_for('static', filename='images/indoor.jpg') }}')"></div>
+        <div class="background-image" style="background-image: url('{{ url_for('static', filename='images/indoor2.jpg') }}')"></div>
+        <div class="background-image" style="background-image: url('{{ url_for('static', filename='images/indoor.jpg') }}')"></div>
     </div>
 
     <div class="text-overlay">
