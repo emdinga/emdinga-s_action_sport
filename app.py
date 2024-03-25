@@ -78,7 +78,7 @@ def send_email():
 @app.route('/contact_us')
 def contact_us():
     """ contact us"""
-    return render_template('contact_us.html')
+    return redirect(url_for('contact_us'))
 
 @app.route('/about')
 def about ():
