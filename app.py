@@ -73,12 +73,12 @@ def send_email():
     except Exception as e:
         flash(f'An error occurred while sending your message: {str(e)}', 'error')
 
-    return redirect(url_for('contact_us.html'))
+    return redirect(url_for('contact_us'))
 
 @app.route('/contact_us')
 def contact_us():
     """ contact us"""
-    return redirect(url_for('contact_us'))
+    return redirect('contact_us.html')
 
 @app.route('/about')
 def about ():
