@@ -173,6 +173,8 @@ button[type="submit"]:hover {
 
 /* styles for the about page */
 
+/* styles.css */
+
 .about-container {
     display: flex;
     justify-content: space-around;
@@ -184,15 +186,14 @@ button[type="submit"]:hover {
     padding: 20px;
     border-radius: 10px;
     background-color: #f9f9f9;
-}
-
-.left-side h2, .middle-side h2, .right-side h2 {
-    color: #333;
+    display: flex;
+    flex-direction: column;
 }
 
 .left-side p, .middle-side p, .right-side p {
     color: #666;
     line-height: 1.6;
+    margin-bottom: 15px; /* Adjust as needed */
 }
 
 .right-side ul {
@@ -217,6 +218,7 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
 
 /* Style for background images */
 .background-images {
